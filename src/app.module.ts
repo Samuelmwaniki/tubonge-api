@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt'; // Import JwtModule
 import { UserModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
     }), // Configure JwtModule here
     UserModule,
     AuthModule,
+    ChatModule,
   ],
 })
 export class AppModule {}
