@@ -15,7 +15,7 @@ export class AuthService {
     return this.usersService.login(username, password);
   }
 
-  async register(username: string, password: string): Promise<User> {
-    return this.usersService.register(username, password);
+  async register(firstname: string, lastname:string, username: string, password: string): Promise<User> {
+    return this.usersService.register(firstname,lastname,username,password);
   }
 }

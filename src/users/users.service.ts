@@ -12,18 +12,18 @@ export class UsersService {
     private jwtService: JwtService,
   ) {}
 
-  async register(username: string, password: string): Promise<User> {
-    const existingUser = await this.userModel.findOne({ username }).exec();
+  async register(username: string, password: string,firstname: string,lastname:string): Promise<User> {
+    const existingUser = await this.userModel.findOne({ 'username': username,'firstname':firstname,'lastname':lastname }).exec();
     if (existingUser) {
       throw new ConflictException('User already exists');
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new this.userModel({ username, password: hashedPassword });
+    const newUser = new this.userModel({ username,firstname,lastname, password: hashedPassword });
     return await newUser.save();
   }
 
   async login(username: string, password: string): Promise<string> {
-    const user = await this.userModel.findOne({ username }).exec();
+    const user = await this.userModel.findOne({ 'username':username }).exec();
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -39,8 +39,8 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async validateUser(username: string, password: string): Promise<User | null> {
-    const user = await this.userModel.findOne({ username }).exec();
+  async validateUser(username: string, password: string,firstname:string,lastname:string): Promise<User | null> {
+    const user = await this.userModel.findOne({ username,firstname,lastname }).exec();
     if (user && await bcrypt.compare(password, user.password)) {
       return user;
     }

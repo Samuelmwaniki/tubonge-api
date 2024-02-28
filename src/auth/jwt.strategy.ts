@@ -17,8 +17,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!payload.username || !payload.password) {
       throw new UnauthorizedException('Invalid payload');
     }
-    const { username, password } = payload;
-    const user = await this.usersService.validateUser(username, password);
+    const {firstname,lastname, username, password } = payload;
+    const user = await this.usersService.validateUser(firstname,lastname,username, password);
     if (!user) {
       throw new UnauthorizedException();
     }

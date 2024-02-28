@@ -8,8 +8,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('register')
-  async register(@Body('username') username: string, @Body('password') password: string): Promise<any> {
-    const user = await this.usersService.register(username, password);
+  async register(@Body('username') username: string, @Body('password') password: string,@Body('firstname')firstname:string,@Body('lastname')lastname:string): Promise<any> {
+    const user = await this.usersService.register(username, password,firstname,lastname);
     return { message: 'User registered successfully', user };
   }
 
