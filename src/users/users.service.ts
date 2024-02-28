@@ -13,17 +13,21 @@ export class UsersService {
   ) {}
 
   async register(username: string, password: string,firstname: string,lastname:string): Promise<User> {
-    const existingUser = await this.userModel.findOne({ 'username': username,'firstname':firstname,'lastname':lastname }).exec();
+    const existingUser = await this.userModel.findOne({ 'username': username }).exec();
     if (existingUser) {
       throw new ConflictException('User already exists');
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new this.userModel({ username,firstname,lastname, password: hashedPassword });
+    const newUser = new this.userModel({ username,firstname,lastname, password });
     return await newUser.save();
   }
 
   async login(username: string, password: string): Promise<string> {
     const user = await this.userModel.findOne({ 'username':username }).exec();
+
+    // const testPass = await bcrypt.hash(password, await bcrypt.genSalt());
+    // console.log('PASSED PASS : ', password, await bcrypt.compare(password, testPass))
+    // console.log('ADDED PASS : ', user.password)
+
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
