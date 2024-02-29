@@ -16,14 +16,11 @@ export class UsersController {
     return { message: 'User registered successfully'
     , user };
   }
+  
 
   @Post('login')
   async login(@Body(new ValidationPipe())loginUserDto:loginUserDto):Promise<any>{
-    const user =await this.usersService.login(loginUserDto.username,loginUserDto.password);
-    return {message:'logged in successfully'
-  , 'username':user}
-
-
+    return await this.usersService.login(loginUserDto.username,loginUserDto.password);
   }
   
   

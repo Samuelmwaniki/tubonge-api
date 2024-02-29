@@ -21,18 +21,20 @@ export class UsersService {
     return await newUser.save();
   }
 
-  async login(username: string, password: string): Promise<string> {
+  async login(username: string, password: string): Promise<any> {
     const user = await this.userModel.findOne({ 'username':username }).exec();
 
-    // const testPass = await bcrypt.hash(password, await bcrypt.genSalt());
-    // console.log('PASSED PASS : ', password, await bcrypt.compare(password, testPass))
-    // console.log('ADDED PASS : ', user.password)
+    const testPass = await bcrypt.hash(password, await bcrypt.genSalt());
+    console.log('PASSED PASS : ', password, await bcrypt.compare(password, testPass))
+    console.log('ADDED PASS : ', user.password)
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
     const payload = { username: user.username, sub: user._id };
-    return this.jwtService.sign(payload);
+    const token = this.jwtService.sign(payload);
+
+    return { user, token }
   }
 
   async getUserProfile(userId: string): Promise<User | null> {

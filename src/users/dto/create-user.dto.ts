@@ -1,9 +1,11 @@
 // create-user.dto.ts
-import { IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength,IsBoolean, MaxLength } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNotEmpty()
+  @IsNotEmpty({message:"username is required"})
   @IsString()
+  @MinLength(4)
+  @MaxLength(50)
   username: string;
 
   @IsNotEmpty()
@@ -13,9 +15,19 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+  @MinLength(4)
+   @MaxLength(50)
   firstname: string;
 
   @IsNotEmpty()
   @IsString()
+  @MinLength(4)
+   @MaxLength(50)
   lastname: string;
+
+  
+
+  
+ 
+  
 }

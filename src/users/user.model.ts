@@ -6,18 +6,29 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  @Prop({ required: true, minlength: 2, maxlength: 50 })
+  @Prop({ required: true,minlength: 4, maxlength: 50  })
   firstname: string;
 
-  @Prop({ required: true, minlength: 2, maxlength: 50 })
+  @Prop({ required: true, minlength: 4, maxlength: 50  })
   lastname: string;
 
   @Prop({ required: true, unique: true, trim: true })
   username: string;
 
-  @Prop({ required: true, minlength: 6 })
+  @Prop({ required: true,minlength: 6 })
   password: string;
+
+  // @Prop({ required: true })
+  // email: string; // Added email property
+
+  @Prop()
+  verificationCode: string;
+
+  @Prop({ default: false })
+  verified: boolean;
+
 }
+
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
