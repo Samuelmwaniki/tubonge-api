@@ -25,8 +25,8 @@ export class UsersService {
     const user = await this.userModel.findOne({ 'username':username }).exec();
 
     const testPass = await bcrypt.hash(password, await bcrypt.genSalt());
-    console.log('PASSED PASS : ', password, await bcrypt.compare(password, testPass))
-    console.log('ADDED PASS : ', user.password)
+    // console.log('PASSED PASS : ', password, await bcrypt.compare(password, testPass))
+    // console.log('ADDED PASS : ', user.password)
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');

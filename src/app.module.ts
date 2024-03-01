@@ -5,6 +5,7 @@ import { UserModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { VerificationModule } from './verification/verification.module';
+import { ChatGateway } from './chat/chat.gateway';
 
 @Module({
   imports: [
@@ -14,11 +15,12 @@ import { VerificationModule } from './verification/verification.module';
     }),
     JwtModule.register({
       secret: 'yourSecretKey', // Replace with your own secret key
-      signOptions: { expiresIn: '1h' }, // Token expiration time
+      signOptions: { expiresIn: '5s' }, // Token expiration time
     }), // Configure JwtModule here
     UserModule,
     AuthModule,
     ChatModule,
+    ChatGateway,
     VerificationModule,
   ],
 })

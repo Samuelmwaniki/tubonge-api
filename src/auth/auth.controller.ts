@@ -1,6 +1,6 @@
 // src/auth/auth.controller.ts
 
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post,Res,Req, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -13,6 +13,13 @@ export class AuthController {
     const token = await this.authService.login(username, password);
     return { token };
   }
+   @Post('logout')
+  async logout(@Req() req: Request) {
+    // You can perform any additional cleanup operations here
+    return { message: 'Logged out successfully' };
+  }
+
+
 
   @Post('register')
   async register(@Body() credentials: { firstname: string, lastname:string,username: string; password: string }): Promise<any> {

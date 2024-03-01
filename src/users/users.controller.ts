@@ -16,7 +16,8 @@ export class UsersController {
     return { message: 'User registered successfully'
     , user };
   }
-  
+  // @Post('logout')
+    
 
   @Post('login')
   async login(@Body(new ValidationPipe())loginUserDto:loginUserDto):Promise<any>{

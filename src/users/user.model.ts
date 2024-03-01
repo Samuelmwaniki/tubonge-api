@@ -26,6 +26,9 @@ export class User {
 
   @Prop({ default: false })
   verified: boolean;
+  
+   @Prop({ default: false })
+  login: boolean;
 
 }
 
