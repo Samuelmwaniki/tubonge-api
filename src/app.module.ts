@@ -5,7 +5,7 @@ import { UserModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { VerificationModule } from './verification/verification.module';
-import { ChatGateway } from './chat/chat.gateway';
+import { WebsocketsModule } from './gateway/websockets/websockets.module';
 
 @Module({
   imports: [
@@ -20,8 +20,11 @@ import { ChatGateway } from './chat/chat.gateway';
     UserModule,
     AuthModule,
     ChatModule,
-    ChatGateway,
+    
     VerificationModule,
+    
+    WebsocketsModule,
+    
   ],
 })
 export class AppModule {}

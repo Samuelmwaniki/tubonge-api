@@ -10,7 +10,7 @@ export class loginUserDto {
   @IsString()
   @MinLength(6) // Example: Minimum length of 6 characters for password
   password: string;
- @Prop({ default: false })
-  login: boolean;
+//  @Prop({ default: false })
+//   login: boolean;
   
 }

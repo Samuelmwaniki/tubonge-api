@@ -8,8 +8,8 @@ import { User } from '../users/user.model';
 export class ChatService {
   constructor(@InjectModel(Chat.name) private chatModel: Model<ChatDocument>) {}
 
-  async sendChat(sender: User, recipient: User, message: string): Promise<Chat> {
-    const newChat = new this.chatModel({ sender, recipient, message });
+  async sendChat(sender: User, recipient: User, message: string,created_at,deleted_at): Promise<Chat> {
+    const newChat = new this.chatModel({ sender, recipient, message,created_at,deleted_at });
     return newChat.save();
   }
 

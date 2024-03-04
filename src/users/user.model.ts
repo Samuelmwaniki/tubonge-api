@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Date, Document } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { Timestamp } from 'rxjs';
 
 export type UserDocument = User & Document;
 
@@ -26,9 +27,11 @@ export class User {
 
   @Prop({ default: false })
   verified: boolean;
+
   
-   @Prop({ default: false })
-  login: boolean;
+
+  //  @Prop({ default: false })
+  // login: boolean;
 
 }
 
