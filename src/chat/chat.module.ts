@@ -1,7 +1,7 @@
 // chat.module.ts
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Chat, ChatSchema } from './chat.model';
+import { Chat, ChatSchema } from './schemas/chat.schema';
 import { ChatService } from './chat.service';
 import { ChatController } from './chat.controller';
 

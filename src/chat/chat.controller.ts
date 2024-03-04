@@ -1,22 +1,20 @@
-// chat.controller.ts
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
-import { ChatService } from './chat.service';
-import { User } from '../users/user.model';
-import { Chat } from '../chat/chat.model';
-import { chatDto } from './dto/chat.dto';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 
-@Controller('chats')
+import { ChatService } from './chat.service';
+import { CreateChatDto } from './dto/create-chat.dto';
+
+@Controller('chat')
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
-  @Post()
-  async sendChat(@Body() chatDto: { sender: User, recipient: User, message: string,created_at:Date,deleted_at:Date }): Promise<Chat> {
-    const { sender, recipient, message,created_at,deleted_at } = chatDto;
-    return this.chatService.sendChat(sender, recipient, message,created_at,deleted_at);
+  @Post('bulk')
+  async create(@Body() createChatDto: CreateChatDto)  {
+    return this.chatService.create(createChatDto);
+    
   }
 
-  @Get(':userId')
-  async getChatsForUser(@Param('userId') userId: string): Promise<Chat[]> {
-    return this.chatService.getChatsForUser(userId);
+  @Get('flattened')
+  async findAll(): Promise<any[]> {
+    return this.chatService.findAll();
   }
 }

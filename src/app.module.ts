@@ -7,6 +7,7 @@ import { ChatModule } from './chat/chat.module';
 import { VerificationModule } from './verification/verification.module';
 import { WebsocketsModule } from './gateway/websockets/websockets.module';
 
+
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017/Tubongee', {
@@ -24,6 +25,8 @@ import { WebsocketsModule } from './gateway/websockets/websockets.module';
     VerificationModule,
     
     WebsocketsModule,
+    
+    
     
   ],
 })

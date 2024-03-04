@@ -22,11 +22,11 @@ export class AuthController {
   }
 
 
-  @Post()
-  async sendChat(@Body() chatDto: { sender: User, recipient: User, message: string,created_at:Date,deleted_at:Date }): Promise<any> {
-    const { sender, recipient, message,created_at,deleted_at } = chatDto;
-    return this.chatService.sendChat(sender, recipient, message,created_at,deleted_at);
-  }
+  // @Post()
+  // async sendChat(@Body() chatDto: { sender: User, recipient: User, message: string,created_at:Date,deleted_at:Date }): Promise<any> {
+  //   const { sender, recipient, message,created_at,deleted_at } = chatDto;
+  //   return this.chatService.sendChat(sender, recipient, message,created_at,deleted_at);
+  // }
 
   @Post('register')
   async register(@Body() credentials: { firstname: string, lastname:string,username: string; password: string }): Promise<any> {
