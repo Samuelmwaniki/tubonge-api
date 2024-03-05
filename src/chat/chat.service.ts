@@ -10,9 +10,14 @@ export class ChatService {
   constructor(@InjectModel(Chat.name) private chatModel: Model<ChatDocument>) {}
 
   async create(createChatDto: CreateChatDto): Promise<Chat> {
-    console.log('data dto', createChatDto);
-    const createdChat = new this.chatModel(createChatDto);
-    return createdChat.save();
+    return await this.chatModel.create(createChatDto);
+  }
+
+  async get(recipientId: string, senderId: string) {
+    console.log('SENDER & RECIPIENT : ', senderId, recipientId);
+    const chats = await this.chatModel.find({ recipient: recipientId, sender: senderId});
+    console.log('CHATS : ', chats);
+    return chats;
   }
 
   async findAll(): Promise<Chat[]> {
