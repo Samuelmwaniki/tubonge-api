@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString } from "class-validator";
+import { Transform } from 'class-transformer';
 export class CreateChatDto {
   @IsNotEmpty({ message: "message cannot be empty" })
 
@@ -16,5 +17,11 @@ export class CreateChatDto {
   @IsString({ message: "invalid" })
 
   sender: string;
+   @Transform(() => new Date())
+  createdAt: Date;
 
+  @Transform(() => new Date())
+  updatedAt: Date;
+
+ 
 }

@@ -1,17 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
+import { VerificationService } from './verification.service';
 
 @Controller('verification')
 export class VerificationController {
-  @Get()
-  generateVerificationCode(): string {
-    const verificationCode = this.generateRandomNumericCode();
-    return verificationCode;
-  }
+  constructor(private readonly verificationService: VerificationService) {}
 
-  generateRandomNumericCode(): string {
-    const min = 1000; // Minimum value for a 4-digit number
-    const max = 9999; // Maximum value for a 4-digit number
-    const randomCode = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randomCode.toString(); // Convert to string for response
+  @Post()
+  generateVerificationCode(): { code: string } {
+    const code = this.verificationService.generateVerificationCode();
+    // You can save this code to associate it with the user and send it via email or SMS
+    return { code };
   }
 }

@@ -23,9 +23,9 @@ export class WebsocketsGateway implements OnGatewayInit, OnGatewayConnection, On
   }
 
   @SubscribeMessage('messageToServer')
-  handleMessage(client: Socket, payload: any): void {
-    console.log(`Message from client ${client.id}: ${payload}`);
-    this.server.emit('messageToClient',payload);
+  handleMessage(client: Socket, message: any): void {
+    console.log(`Message from client ${client.id}: ${message}`);
+    this.server.emit('messageToClient',message);
   }
 
 }
