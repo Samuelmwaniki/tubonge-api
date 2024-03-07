@@ -18,11 +18,8 @@ export class Chat {
   message: string;
   
 
- @Transform(() => new Date())
+ @Prop()
   createdAt: Date;
-
-  @Transform(() => new Date())
-  updatedAt: Date;
 
   
 }

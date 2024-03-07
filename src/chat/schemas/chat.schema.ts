@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop,Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Transform } from 'class-transformer';
 export type ChatDocument = Chat & Document;
@@ -7,22 +7,19 @@ export type ChatDocument = Chat & Document;
 export class Chat {
   @Prop()
   sender: string;
-
+    
   @Prop()
   recipient: string;
 
-  @Prop()
-  timestamp: Date;
+  // @Prop()
+  // timestamp: Date;
+    @Prop({ default: Date.now })
+  createdAt: Date;
 
   @Prop({ required: true })
   message: string;
-  
+ 
 
- @Transform(() => new Date())
-  createdAt: Date;
-
-  @Transform(() => new Date())
-  updatedAt: Date;
 
   
 }

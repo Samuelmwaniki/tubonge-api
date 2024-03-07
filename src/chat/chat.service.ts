@@ -14,11 +14,16 @@ export class ChatService {
   }
 
   async get(recipientId: string, senderId: string) {
-    // console.log('SENDER & RECIPIENT : ', senderId, recipientId);
-    const chats = await this.chatModel.find({ recipient: recipientId, sender: senderId});
-    // console.log('CHATS : ', chats);
+    console.log(recipientId, senderId)
+    const chats = await this.chatModel.find({
+        $or: [
+            { recipient: recipientId, sender: senderId },
+            { recipient: senderId, sender: recipientId }
+        ]
+     // recipient: recipientId, sender: senderId,
+    }).exec();
     return chats;
-  }
+}
 
   async findAll(): Promise<Chat[]> {
     return this.chatModel.find().exec();

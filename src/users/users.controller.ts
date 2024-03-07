@@ -11,6 +11,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('register')
+  
   async register(@Body(new ValidationPipe()) createUserDto: CreateUserDto): Promise<any> {
     const user = await this.usersService.register(createUserDto.username, createUserDto.password, createUserDto.firstname, createUserDto.lastname);
     return { message: 'User registered successfully'
@@ -23,7 +24,8 @@ export class UsersController {
   async login(@Body(new ValidationPipe())loginUserDto:loginUserDto):Promise<any>{
     return await this.usersService.login(loginUserDto.username,loginUserDto.password);
   }
-  
+   
+
   
   //username: string, @Body('password') password: string): Promise<any> {
   //   const token = await this.usersService.login(username, password);
