@@ -1,5 +1,6 @@
 // create-user.dto.ts
-import { IsNotEmpty, IsString, MinLength,IsBoolean, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength,IsBoolean, MaxLength ,} from 'class-validator';
+import { Prop } from '@nestjs/mongoose';
 
 export class CreateUserDto {
   @IsNotEmpty({message:"username is required"})
@@ -24,6 +25,11 @@ export class CreateUserDto {
   @MinLength(4)
    @MaxLength(50)
   lastname: string;
+  
+  
+ 
+
+  
 
   
 

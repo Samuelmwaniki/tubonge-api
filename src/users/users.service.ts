@@ -5,6 +5,7 @@ import { User, UserDocument } from './user.model';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -43,8 +44,8 @@ export class UsersService {
 
   async getAllUsers(): Promise<User[]> {
     return this.userModel.find().exec();
-  }
-
+ 
+}
   async validateUser(username: string, password: string,firstname:string,lastname:string): Promise<User | null> {
     const user = await this.userModel.findOne({ username,firstname,lastname }).exec();
     if (user && await bcrypt.compare(password, user.password)) {

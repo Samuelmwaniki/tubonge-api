@@ -8,16 +8,16 @@ import { VerificationModule } from './verification/verification.module';
 import { WebsocketsModule } from './gateway/websockets/websockets.module';
 
 
+
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017/Tubongee', {
-      //useNewUrlParser: true,
-      //useUnifiedTopology: true,
+      
     }),
     JwtModule.register({
-      secret: 'yourSecretKey', // Replace with your own secret key
-      signOptions: { expiresIn: '5s' }, // Token expiration time
-    }), // Configure JwtModule here
+      secret: 'tshirt',
+      signOptions: { expiresIn: '1ms' }, 
+    }), 
     UserModule,
     AuthModule,
     ChatModule,
@@ -29,5 +29,6 @@ import { WebsocketsModule } from './gateway/websockets/websockets.module';
     
     
   ],
+ 
 })
 export class AppModule {}

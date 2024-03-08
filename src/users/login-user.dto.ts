@@ -8,9 +8,8 @@ export class loginUserDto {
   
   @IsNotEmpty()
   @IsString()
-  @MinLength(6) // Example: Minimum length of 6 characters for password
+  @MinLength(5) 
   password: string;
-//  @Prop({ default: false })
-//   login: boolean;
+
   
 }
