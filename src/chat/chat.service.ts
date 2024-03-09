@@ -3,18 +3,21 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Chat, ChatDocument } from './schemas/chat.schema';
 import { CreateChatDto } from './dto/create-chat.dto';
+import { WebsocketsGateway } from 'src/gateway/websockets/websockets.gateway';
 
 
 @Injectable()
 export class ChatService {
-  constructor(@InjectModel(Chat.name) private chatModel: Model<ChatDocument>) {}
+  constructor(@InjectModel(Chat.name) private chatModel: Model<ChatDocument>, private readonly chatGateway: WebsocketsGateway) {}
 
   async create(createChatDto: CreateChatDto): Promise<Chat> {
-    return await this.chatModel.create(createChatDto);
+    const message = await this.chatModel.create(createChatDto);
+    this.chatGateway.broadcastMessage(message);
+    return message;
   }
 
   async get(recipientId: string, senderId: string) {
-    console.log(recipientId, senderId)
+    // console.log('Fetch chat for user and selected:', recipientId, senderId)
     const chats = await this.chatModel.find({
         $or: [
             { recipient: recipientId, sender: senderId },

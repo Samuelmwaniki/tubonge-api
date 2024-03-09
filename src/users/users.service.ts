@@ -13,9 +13,12 @@ export class UsersService {
     private jwtService: JwtService,
   ) {}
 
-  async register(username: string, password: string,firstname: string,lastname:string): Promise<User> {
+  async register(username: string, password: string,firstname: string,lastname:string): Promise<User> 
+  {
     const existingUser = await this.userModel.findOne({ 'username': username }).exec();
-    if (existingUser) {
+    if (existingUser) 
+
+    {
       throw new ConflictException('User already exists');
     }
     const newUser = new this.userModel({ username,firstname,lastname, password });
@@ -23,34 +26,42 @@ export class UsersService {
   }
 
   async login(username: string, password: string): Promise<any> {
+
     const user = await this.userModel.findOne({ 'username':username }).exec();
 
     const testPass = await bcrypt.hash(password, await bcrypt.genSalt());
+
     // console.log('PASSED PASS : ', password, await bcrypt.compare(password, testPass))
     // console.log('ADDED PASS : ', user.password)
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user || !(await bcrypt.compare(password, user.password))) 
+    {
       throw new UnauthorizedException('Invalid credentials');
     }
+
     const payload = { username: user.username, sub: user._id };
+
     const token = this.jwtService.sign(payload);
 
     return { user, token }
   }
 
-  async getUserProfile(userId: string): Promise<User | null> {
+  async getUserProfile(userId: string): Promise<User | null>
+   {
     return this.userModel.findById(userId).exec();
   }
 
   async getAllUsers(): Promise<User[]> {
     return this.userModel.find().exec();
  
-}
-  async validateUser(username: string, password: string,firstname:string,lastname:string): Promise<User | null> {
+  }
+  async validateUser(username: string, password: string,firstname:string,lastname:string): Promise<User | null>
+   {
     const user = await this.userModel.findOne({ username,firstname,lastname }).exec();
     if (user && await bcrypt.compare(password, user.password)) {
       return user;
     }
     return null;
   }
+  
 }
