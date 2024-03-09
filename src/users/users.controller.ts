@@ -7,21 +7,27 @@ import { userInfo } from 'os';
 
 
 @Controller('users')
+
 export class UsersController {
+
   constructor(private readonly usersService: UsersService) {}
+  //post endpoint for registration
 
   @Post('register')
   
   async register(@Body(new ValidationPipe()) createUserDto: CreateUserDto): Promise<any> {
+
     const user = await this.usersService.register(createUserDto.username, createUserDto.password, createUserDto.firstname, createUserDto.lastname);
-    return { message: 'User registered successfully'
-    , user };
+
+    return { message: 'User registered successfully', user };
   }
   // @Post('logout')
     
 
   @Post('login')
+
   async login(@Body(new ValidationPipe())loginUserDto:loginUserDto):Promise<any>{
+
     return await this.usersService.login(loginUserDto.username,loginUserDto.password);
   }
    
@@ -33,12 +39,16 @@ export class UsersController {
   // }
 
   @Get(':userId')
-  async getUserProfile(@Param('userId') userId: string): Promise<User | null> {
+
+  async getUserProfile(@Param('userId') userId: string): Promise<User | null> 
+  {
+
     return this.usersService.getUserProfile(userId);
   }
 
   @Get()
   async getAllUsers(): Promise<User[]> {
+
     return this.usersService.getAllUsers();
   }
 }
