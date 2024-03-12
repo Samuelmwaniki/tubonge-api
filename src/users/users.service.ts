@@ -28,6 +28,7 @@ export class UsersService {
   async login(username: string, password: string): Promise<any> {
 
     const user = await this.userModel.findOne({ 'username':username }).exec();
+    // console.log('user', user)
 
     const testPass = await bcrypt.hash(password, await bcrypt.genSalt());
 
