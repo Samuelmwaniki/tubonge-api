@@ -31,7 +31,7 @@ export class WebsocketsGateway implements OnGatewayInit, OnGatewayConnection, On
   
   broadcastMessage(@MessageBody() message: any){
     this.clients.forEach((clientSocket) => {
-     console.log('Attempting to bradcast', clientSocket.id);
+    //  console.log('Attempting to bradcast', clientSocket.id);
       clientSocket.emit('message', message);
     })
   } 
