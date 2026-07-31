@@ -1,4 +1,4 @@
-import { Prop,Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Transform } from 'class-transformer';
 export type ChatDocument = Chat & Document;
@@ -7,21 +7,22 @@ export type ChatDocument = Chat & Document;
 export class Chat {
   @Prop()
   sender: string;
-    
+
   @Prop()
   recipient: string;
 
   // @Prop()
   // timestamp: Date;
-    @Prop({ default: Date.now })
+  @Prop({ default: Date.now })
   createdAt: Date;
 
   @Prop({ required: true })
   message: string;
- 
 
-
-  
+  // NEW: tracks whether the recipient has opened this conversation
+  // since this message arrived. Used to compute unread badge counts.
+  @Prop({ default: false })
+  read: boolean;
 }
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);
