@@ -77,12 +77,19 @@ export class ChatService {
     }));
   }
 
-  // NEW: marks every message otherUserId sent to userId as read.
-  // Call this when userId opens that conversation.
+  // NEW: marks every message otherUserId sent to userId as read, then
+  // tells otherUserId's socket(s) in real time so their UI can show
+  // "Seen" on the messages they sent — without them needing to refetch.
   async markAsRead(userId: string, otherUserId: string) {
-    return this.chatModel.updateMany(
+    const result = await this.chatModel.updateMany(
       { sender: otherUserId, recipient: userId, read: { $ne: true } },
       { $set: { read: true } },
     );
+
+    this.chatGateway.emitToUser(otherUserId, 'messagesRead', {
+      readerId: userId,
+    });
+
+    return result;
   }
 }

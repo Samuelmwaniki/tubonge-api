@@ -73,6 +73,32 @@ export class WebsocketsGateway
     client.emit('onlineUsers', Array.from(this.userSockets.keys()));
   }
 
+  // NEW: sends an event only to the socket(s) belonging to one specific
+  // user, instead of broadcasting to everyone. Used for typing indicators
+  // and read receipts so we don't spam every connected client.
+  emitToUser(userId: string, event: string, payload: any) {
+    const socketIds = this.userSockets.get(userId);
+    if (!socketIds) {
+      return;
+    }
+    socketIds.forEach((id) => this.server.to(id).emit(event, payload));
+  }
+
+  // NEW: relays "X is typing" between two specific users.
+  @SubscribeMessage('typing')
+  handleTyping(
+    client: Socket,
+    payload: { senderId: string; recipientId: string; isTyping: boolean },
+  ): void {
+    if (!payload?.recipientId) {
+      return;
+    }
+    this.emitToUser(payload.recipientId, 'typing', {
+      senderId: payload.senderId,
+      isTyping: payload.isTyping,
+    });
+  }
+
   @SubscribeMessage('messageToServer')
   handleMessage(client: Socket, message: any): void {
     console.log(`Message from client ${client.id}: ${message}`);
