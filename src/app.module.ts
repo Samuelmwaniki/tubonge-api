@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { VerificationModule } from './verification/verification.module';
 import { WebsocketsModule } from './gateway/websockets/websockets.module';
+import { FriendsModule } from './friends/friends.module';
 
 
 
@@ -25,6 +26,8 @@ import { WebsocketsModule } from './gateway/websockets/websockets.module';
     VerificationModule,
     
     WebsocketsModule,
+    
+    FriendsModule,
     
     
     
